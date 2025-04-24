@@ -82,8 +82,14 @@ public class WebSocketConnection extends WebSocketListener {
 
     @Override
     public void onClosing(WebSocket ws, int code, String reason) {
-        super.onClosing(ws, code, reason);
+        logger.info("[Connection {}] Closing connection", connectionId);
         onClosingCallback.onReceive(reason);
+    }
+
+    @Override
+    public void onClosed(WebSocket ws, int code, String reason) {
+        logger.info("[Connection {}] Closed connection", connectionId);
+        super.onClosed(ws, code, reason);
     }
 
     @Override

@@ -283,4 +283,22 @@ public class UMMarket extends Market {
         return getRequestHandler().sendPublicRequest(getProductUrl(), ASSET_INDEX, parameters, HttpMethod.GET, getShowLimitUsage());
     }
 
+    private final String FUNDING_INFO = "/v1/fundingInfo";
+    /**
+     * Get funding rate info
+     * <br><br>
+     * GET /v1/fundingInfo
+     * <br>
+     * @param
+     * parameters LinkedHashedMap of String,Object pair
+     *            where String is the name of the parameter and Object is the value of the parameter
+     * <br><br>
+     * @return String
+     * @see <a href="https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Get-Funding-Rate-Info">
+     *     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Get-Funding-Rate-Info</a>
+     */
+    public String fundingInfo(LinkedHashMap<String, Object> parameters) {
+        return getRequestHandler().sendPublicRequest(getProductUrl(), FUNDING_INFO, parameters, HttpMethod.GET, getShowLimitUsage());
+    }
+
 }

@@ -13,6 +13,6 @@ import com.binance.connector.futures.client.utils.ProxyAuth;
  */
 public class UMUserData extends UserData {
     public UMUserData(String productUrl, String apiKey, boolean showLimitUsage, ProxyAuth proxy) {
-        super(productUrl, apiKey, showLimitUsage, proxy);
+        super(productUrl, apiKey, showLimitUsage, proxy, "/v1/listenKey");
     }
 }

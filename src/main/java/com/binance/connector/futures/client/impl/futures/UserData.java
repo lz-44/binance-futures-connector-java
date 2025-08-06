@@ -9,14 +9,17 @@ import com.binance.connector.futures.client.utils.RequestHandler;
  * Response will be returned in <i>String format</i>.
  */
 public abstract class UserData {
+    private final String listenKey;
+
     private String productUrl;
     private RequestHandler requestHandler;
     private boolean showLimitUsage;
 
-    public UserData(String productUrl, String apiKey, boolean showLimitUsage, ProxyAuth proxy) {
+    public UserData(String productUrl, String apiKey, boolean showLimitUsage, ProxyAuth proxy, String listenKey) {
         this.productUrl = productUrl;
         this.requestHandler = new RequestHandler(apiKey, proxy);
         this.showLimitUsage = showLimitUsage;
+        this.listenKey = listenKey;
     }
 
     public String getProductUrl() {
@@ -42,8 +45,6 @@ public abstract class UserData {
     public void setShowLimitUsage(boolean showLimitUsage) {
         this.showLimitUsage = showLimitUsage;
     }
-
-    private final String LISTEN_KEY = "/v1/listenKey";
     /**
      * Start a new user data stream. The stream will close after 60 minutes unless a keepalive is sent.
      * If the account has an active listenKey, that listenKey will be returned and its validity will be extended for 60 minutes.
@@ -55,7 +56,7 @@ public abstract class UserData {
      *     https://developers.binance.com/docs/derivatives/usds-margined-futures/user-data-streams/Start-User-Data-Stream</a>
      */
     public String createListenKey() {
-        return requestHandler.sendWithApiKeyRequest(productUrl, LISTEN_KEY, null, HttpMethod.POST, showLimitUsage);
+        return requestHandler.sendWithApiKeyRequest(productUrl, listenKey, null, HttpMethod.POST, showLimitUsage);
     }
 
     /**
@@ -69,7 +70,7 @@ public abstract class UserData {
      *     https://developers.binance.com/docs/derivatives/usds-margined-futures/user-data-streams/Keepalive-User-Data-Stream</a>
      */
     public String extendListenKey() {
-        return requestHandler.sendWithApiKeyRequest(productUrl, LISTEN_KEY, null, HttpMethod.PUT, showLimitUsage);
+        return requestHandler.sendWithApiKeyRequest(productUrl, listenKey, null, HttpMethod.PUT, showLimitUsage);
     }
 
     /**
@@ -82,6 +83,6 @@ public abstract class UserData {
      *     https://developers.binance.com/docs/derivatives/usds-margined-futures/user-data-streams/Close-User-Data-Stream</a>
      */
     public String closeListenKey() {
-        return requestHandler.sendWithApiKeyRequest(productUrl, LISTEN_KEY, null, HttpMethod.DELETE, showLimitUsage);
+        return requestHandler.sendWithApiKeyRequest(productUrl, listenKey, null, HttpMethod.DELETE, showLimitUsage);
     }
 }

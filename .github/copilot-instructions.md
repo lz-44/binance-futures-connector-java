@@ -30,14 +30,18 @@ This repository contains a **deprecated** Java library that provides connectivit
 src/main/java/com/binance/connector/futures/
 ├── client/                          # Main client interfaces
 │   ├── FuturesClient.java          # Base futures client interface
+│   ├── SpotClient.java             # Spot client interface
 │   ├── WebsocketClient.java        # WebSocket client interface
 │   ├── impl/                       # Client implementations
 │   │   ├── UMFuturesClientImpl.java    # USD-M Futures client
 │   │   ├── CMFuturesClientImpl.java    # COIN-M Futures client
+│   │   ├── SpotClientImpl.java         # Spot client implementation
 │   │   ├── UMWebsocketClientImpl.java  # USD-M WebSocket client
 │   │   ├── CMWebsocketClientImpl.java  # COIN-M WebSocket client
+│   │   ├── SpotWebsocketClientImpl.java # Spot WebSocket client
 │   │   ├── um_futures/             # USD-M specific implementations
-│   │   └── cm_futures/             # COIN-M specific implementations
+│   │   ├── cm_futures/             # COIN-M specific implementations
+│   │   └── spot/                   # Spot specific implementations
 │   ├── enums/                      # Enumerations and constants
 │   ├── exceptions/                 # Custom exception classes
 │   └── utils/                      # Utility classes
@@ -202,18 +206,20 @@ int streamID = client.aggTradeStream("btcusdt", (event) -> {
 });
 ```
 
-## Key Differences: USD-M vs COIN-M Futures
+## Key Differences: USD-M vs COIN-M Futures vs Spot
 
 - **USD-M Futures** (`UMFuturesClientImpl`): Uses `/fapi` endpoints, settles in USDT/BUSD
 - **COIN-M Futures** (`CMFuturesClientImpl`): Uses `/dapi` endpoints, settles in cryptocurrency
+- **Spot** (`SpotClientImpl`): Uses `/api` endpoints for spot trading user data streams
 
-Both follow identical patterns but with different base URLs and endpoint prefixes.
+All follow identical patterns but with different base URLs and endpoint prefixes. The Spot client primarily provides user data stream functionality for spot trading integration.
 
 ## Configuration and Environment
 
 ### Base URLs
 - **Production USD-M**: `https://fapi.binance.com`
-- **Production COIN-M**: `https://dapi.binance.com`  
+- **Production COIN-M**: `https://dapi.binance.com`
+- **Production Spot**: `https://api.binance.com`  
 - **Testnet**: `https://testnet.binancefuture.com`
 
 ### Proxy Support

@@ -8,6 +8,7 @@ unit/um_futures/account/TestUMQuantitativeRulesIndicators.class
 unit/TestParameterChecker.class
 examples/cm_futures/websocket/AllMiniTickerStream.class
 unit/cm_futures/market/TestCMPing.class
+unit/cm_futures/subaccount/TestCMUniversalTransfer.class
 unit/um_futures/account/TestUMPositionAdlQuantileEstimation.class
 examples/cm_futures/websocket/AggTradeStream.class
 unit/um_futures/market/TestUMPing.class
@@ -63,6 +64,7 @@ examples/um_futures/websocket/SymbolTicker.class
 examples/um_futures/userdata/ExtendListenKey.class
 unit/um_futures/account/TestUMCancelAllOpenOrders.class
 unit/um_futures/account/TestUMUserCommissionRate.class
+unit/um_futures/subaccount/TestUMUniversalTransfer.class
 examples/cm_futures/websocket/AllBookTicker.class
 examples/um_futures/websocket/ForceOrderStream.class
 examples/um_futures/account/ChangeMultiAssetsMode.class
@@ -83,6 +85,7 @@ unit/um_futures/market/TestUMDepth.class
 examples/cm_futures/account/ModifyIsolatedPositionMargin.class
 unit/cm_futures/market/TestCMExchangeInfo.class
 examples/cm_futures/market/ContinuousKlines.class
+examples/um_futures/subaccount/UniversalTransferHistory.class
 unit/um_futures/account/TestUMCurrentPositionMode.class
 examples/cm_futures/market/BookTicker.class
 examples/um_futures/market/OpenInterestStatistics.class
@@ -115,6 +118,7 @@ unit/um_futures/market/TestUMHistoricalBlvtKlines.class
 examples/um_futures/account/AccountInformation.class
 examples/um_futures/account/QueryOrder.class
 examples/um_futures/account/FuturesAccountBalance.class
+examples/um_futures/subaccount/UniversalTransfer.class
 unit/um_futures/market/TestUMAggTrades.class
 unit/um_futures/market/TestUMTickerPrice.class
 examples/um_futures/websocket/CompositeIndex.class

@@ -5,6 +5,7 @@ import com.binance.connector.futures.client.impl.cm_futures.CMMarket;
 import com.binance.connector.futures.client.impl.cm_futures.CMAccount;
 import com.binance.connector.futures.client.impl.cm_futures.CMUserData;
 import com.binance.connector.futures.client.impl.cm_futures.CMPortfolioMargin;
+import com.binance.connector.futures.client.impl.cm_futures.CMSubAccount;
 
 public class CMFuturesClientImpl extends FuturesClientImpl {
     private static String defaultBaseUrl = DefaultUrls.COINM_PROD_URL;
@@ -52,5 +53,10 @@ public class CMFuturesClientImpl extends FuturesClientImpl {
     @Override
     public CMPortfolioMargin portfolioMargin() {
         return new CMPortfolioMargin(getProductUrl(), getApiKey(), getSecretKey(), getShowLimitUsage(), getProxy());
+    }
+
+    @Override
+    public CMSubAccount subAccount() {
+        return new CMSubAccount(getBaseUrl(), getApiKey(), getSecretKey(), getShowLimitUsage(), getProxy());
     }
 }

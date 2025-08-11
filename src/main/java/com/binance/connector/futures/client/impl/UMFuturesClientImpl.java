@@ -4,6 +4,7 @@ import com.binance.connector.futures.client.enums.DefaultUrls;
 import com.binance.connector.futures.client.impl.um_futures.UMAccount;
 import com.binance.connector.futures.client.impl.um_futures.UMMarket;
 import com.binance.connector.futures.client.impl.um_futures.UMUserData;
+import com.binance.connector.futures.client.impl.um_futures.UMSubAccount;
 
 public class UMFuturesClientImpl extends FuturesClientImpl {
     private static String defaultBaseUrl = DefaultUrls.USDM_PROD_URL;
@@ -46,5 +47,10 @@ public class UMFuturesClientImpl extends FuturesClientImpl {
     @Override
     public UMUserData userData() {
         return new UMUserData(getProductUrl(), getApiKey(), getShowLimitUsage(), getProxy());
+    }
+
+    @Override
+    public UMSubAccount subAccount() {
+        return new UMSubAccount(getBaseUrl(), getApiKey(), getSecretKey(), getShowLimitUsage(), getProxy());
     }
 }

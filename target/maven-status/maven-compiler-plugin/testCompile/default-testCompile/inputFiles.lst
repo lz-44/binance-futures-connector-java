@@ -127,6 +127,8 @@
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/examples/um_futures/portfoliomargin/PortfolioMarginExchangeInfo.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/examples/um_futures/proxy/AuthProxy.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/examples/um_futures/proxy/UnauthProxy.java
+/home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/examples/um_futures/subaccount/UniversalTransfer.java
+/home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/examples/um_futures/subaccount/UniversalTransferHistory.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/examples/um_futures/userdata/CloseListenKey.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/examples/um_futures/userdata/CreateListenKey.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/examples/um_futures/userdata/ExtendListenKey.java
@@ -206,6 +208,7 @@
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/cm_futures/market/TestCMTrades.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/cm_futures/portfoliomargin/TestCMPortfolioMarginAccountInfo.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/cm_futures/portfoliomargin/TestCMPortfolioMarginExchangeInfo.java
+/home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/cm_futures/subaccount/TestCMUniversalTransfer.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/cm_futures/userdata/TestCMCloseListenKey.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/cm_futures/userdata/TestCMCreateListenKey.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/cm_futures/userdata/TestCMExtendListenKey.java
@@ -264,6 +267,7 @@
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/um_futures/market/TestUMTopLongShortAccountRatio.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/um_futures/market/TestUMTopLongShortPositionRatio.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/um_futures/market/TestUMTrades.java
+/home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/um_futures/subaccount/TestUMUniversalTransfer.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/um_futures/userdata/TestUMCloseListenKey.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/um_futures/userdata/TestUMCreateListenKey.java
 /home/runner/work/binance-futures-connector-java/binance-futures-connector-java/src/test/java/unit/um_futures/userdata/TestUMExtendListenKey.java

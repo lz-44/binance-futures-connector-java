@@ -4,48 +4,54 @@ import com.binance.connector.futures.client.enums.DefaultUrls;
 import com.binance.connector.futures.client.impl.um_futures.UMAccount;
 import com.binance.connector.futures.client.impl.um_futures.UMMarket;
 import com.binance.connector.futures.client.impl.um_futures.UMUserData;
+import com.binance.connector.futures.client.impl.um_futures.UMSubAccount;
 
 public class UMFuturesClientImpl extends FuturesClientImpl {
-<span class="fc" id="L9">    private static String defaultBaseUrl = DefaultUrls.USDM_PROD_URL;</span>
-<span class="fc" id="L10">    private static String umProduct = &quot;/fapi&quot;;</span>
+<span class="fc" id="L10">    private static String defaultBaseUrl = DefaultUrls.USDM_PROD_URL;</span>
+<span class="fc" id="L11">    private static String umProduct = &quot;/fapi&quot;;</span>
 
     public UMFuturesClientImpl() {
-<span class="nc" id="L13">        super(defaultBaseUrl, umProduct);</span>
-<span class="nc" id="L14">    }</span>
+<span class="nc" id="L14">        super(defaultBaseUrl, umProduct);</span>
+<span class="nc" id="L15">    }</span>
 
     public UMFuturesClientImpl(String baseUrl) {
-<span class="fc" id="L17">        super(baseUrl, umProduct);</span>
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L18">        super(baseUrl, umProduct);</span>
+<span class="fc" id="L19">    }</span>
 
     public UMFuturesClientImpl(String apiKey, String secretKey) {
-<span class="nc" id="L21">        super(apiKey, secretKey, defaultBaseUrl, umProduct);</span>
-<span class="nc" id="L22">    }</span>
+<span class="nc" id="L22">        super(apiKey, secretKey, defaultBaseUrl, umProduct);</span>
+<span class="nc" id="L23">    }</span>
 
     public UMFuturesClientImpl(String baseUrl, boolean showLimitUsage) {
-<span class="nc" id="L25">        super(baseUrl, umProduct, showLimitUsage);</span>
-<span class="nc" id="L26">    }</span>
+<span class="nc" id="L26">        super(baseUrl, umProduct, showLimitUsage);</span>
+<span class="nc" id="L27">    }</span>
 
     public UMFuturesClientImpl(String apiKey, String secretKey, boolean showLimitUsage) {
-<span class="nc" id="L29">        super(apiKey, secretKey, defaultBaseUrl, umProduct, showLimitUsage);</span>
-<span class="nc" id="L30">    }</span>
+<span class="nc" id="L30">        super(apiKey, secretKey, defaultBaseUrl, umProduct, showLimitUsage);</span>
+<span class="nc" id="L31">    }</span>
 
     public UMFuturesClientImpl(String apiKey, String secretKey, String baseUrl) {
-<span class="fc" id="L33">        super(apiKey, secretKey, baseUrl, umProduct);</span>
-<span class="fc" id="L34">    }</span>
+<span class="fc" id="L34">        super(apiKey, secretKey, baseUrl, umProduct);</span>
+<span class="fc" id="L35">    }</span>
 
     @Override
     public UMMarket market() {
-<span class="fc" id="L38">        return new UMMarket(getProductUrl(), getBaseUrl(), getApiKey(), getShowLimitUsage(), getProxy());</span>
+<span class="fc" id="L39">        return new UMMarket(getProductUrl(), getBaseUrl(), getApiKey(), getShowLimitUsage(), getProxy());</span>
     }
 
     @Override
     public UMAccount account() {
-<span class="fc" id="L43">        return new UMAccount(getProductUrl(), getApiKey(), getSecretKey(), getShowLimitUsage(), getProxy());</span>
+<span class="fc" id="L44">        return new UMAccount(getProductUrl(), getApiKey(), getSecretKey(), getShowLimitUsage(), getProxy());</span>
     }
 
     @Override
     public UMUserData userData() {
-<span class="fc" id="L48">        return new UMUserData(getProductUrl(), getApiKey(), getShowLimitUsage(), getProxy());</span>
+<span class="fc" id="L49">        return new UMUserData(getProductUrl(), getApiKey(), getShowLimitUsage(), getProxy());</span>
+    }
+
+    @Override
+    public UMSubAccount subAccount() {
+<span class="fc" id="L54">        return new UMSubAccount(getBaseUrl(), getApiKey(), getSecretKey(), getShowLimitUsage(), getProxy());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

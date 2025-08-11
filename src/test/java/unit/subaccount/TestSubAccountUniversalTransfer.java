@@ -30,12 +30,13 @@ public class TestSubAccountUniversalTransfer {
         mockWebServer.setDispatcher(dispatcher);
         
         SubAccountClientImpl client = new SubAccountClientImpl(MockData.API_KEY, MockData.SECRET_KEY, baseUrl);
-        
+
+        final double randomAmount = 100d;
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("fromAccountType", "SPOT");
         parameters.put("toAccountType", "USDT_FUTURE");
         parameters.put("asset", "USDT");
-        parameters.put("amount", "100");
+        parameters.put("amount", randomAmount);
         
         String result = client.subAccount().universalTransfer(parameters);
         assertEquals(MockData.MOCK_RESPONSE, result);
@@ -48,14 +49,15 @@ public class TestSubAccountUniversalTransfer {
         mockWebServer.setDispatcher(dispatcher);
         
         SubAccountClientImpl client = new SubAccountClientImpl(MockData.API_KEY, MockData.SECRET_KEY, baseUrl);
-        
+
+        final double randomAmount = 0.1d;
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("fromEmail", "from@example.com");
         parameters.put("toEmail", "to@example.com");
         parameters.put("fromAccountType", "SPOT");
         parameters.put("toAccountType", "COIN_FUTURE");
         parameters.put("asset", "BTC");
-        parameters.put("amount", "0.01");
+        parameters.put("amount", randomAmount);
         parameters.put("clientTranId", "transfer123");
         
         String result = client.subAccount().universalTransfer(parameters);

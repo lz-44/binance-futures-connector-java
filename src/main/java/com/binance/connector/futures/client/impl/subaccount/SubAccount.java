@@ -70,7 +70,7 @@ public class SubAccount {
         ParameterChecker.checkParameter(parameters, "fromAccountType", String.class);
         ParameterChecker.checkParameter(parameters, "toAccountType", String.class);
         ParameterChecker.checkParameter(parameters, "asset", String.class);
-        ParameterChecker.checkParameter(parameters, "amount", String.class);
+        ParameterChecker.checkParameter(parameters, "amount", Double.class);
         return requestHandler.sendSignedRequest(productUrl, UNIVERSAL_TRANSFER, parameters, HttpMethod.POST, showLimitUsage);
     }
 }

@@ -3,6 +3,7 @@ package com.binance.connector.futures.client.impl.futures;
 import com.binance.connector.futures.client.enums.HttpMethod;
 import com.binance.connector.futures.client.utils.ProxyAuth;
 import com.binance.connector.futures.client.utils.RequestHandler;
+import java.util.LinkedHashMap;
 
 /**
  * <h2>User Data Streams Endpoints</h2>
@@ -71,6 +72,13 @@ public abstract class UserData {
      */
     public String extendListenKey() {
         return requestHandler.sendWithApiKeyRequest(productUrl, listenKey, null, HttpMethod.PUT, showLimitUsage);
+    }
+
+    // Suitable for /v3/userDataStream endpoint (Spot User Data Stream)
+    public String extendListenKey(String listenKeyToExtend) {
+        LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
+        parameters.put("listenKey", listenKeyToExtend);
+        return requestHandler.sendWithApiKeyRequest(productUrl, listenKey, parameters, HttpMethod.PUT, showLimitUsage);
     }
 
     /**

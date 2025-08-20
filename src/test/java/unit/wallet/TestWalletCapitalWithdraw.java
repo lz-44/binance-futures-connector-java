@@ -110,4 +110,34 @@ public class TestWalletCapitalWithdraw {
         
         assertThrows(BinanceConnectorException.class, () -> client.wallet().capitalWithdraw(parameters));
     }
+
+    @Test
+    public void testGetAllCoinsInfo() {
+        String path = "sapi/v1/capital/config/getall";
+        Dispatcher dispatcher = MockWebServerDispatcher.getDispatcher(MockData.PREFIX, path, MockData.MOCK_RESPONSE, HttpMethod.GET, MockData.HTTP_STATUS_OK);
+        mockWebServer.setDispatcher(dispatcher);
+        
+        WalletClientImpl client = new WalletClientImpl(MockData.API_KEY, MockData.SECRET_KEY, baseUrl);
+
+        LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
+        
+        String result = client.wallet().getAllCoinsInfo(parameters);
+        assertEquals(MockData.MOCK_RESPONSE, result);
+    }
+
+    @Test
+    public void testGetAllCoinsInfoWithRecvWindow() {
+        String path = "sapi/v1/capital/config/getall";
+        Dispatcher dispatcher = MockWebServerDispatcher.getDispatcher(MockData.PREFIX, path, MockData.MOCK_RESPONSE, HttpMethod.GET, MockData.HTTP_STATUS_OK);
+        mockWebServer.setDispatcher(dispatcher);
+        
+        WalletClientImpl client = new WalletClientImpl(MockData.API_KEY, MockData.SECRET_KEY, baseUrl);
+
+        final long recvWindow = 5000L;
+        LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
+        parameters.put("recvWindow", recvWindow);
+        
+        String result = client.wallet().getAllCoinsInfo(parameters);
+        assertEquals(MockData.MOCK_RESPONSE, result);
+    }
 }

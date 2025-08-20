@@ -1,7 +1,7 @@
 package com.binance.connector.futures.client;
 
-import com.binance.connector.futures.client.impl.wallet.Wallet;
+import com.binance.connector.futures.client.impl.wallet.Capital;
 
 public interface WalletClient {
-    Wallet wallet();
+    Capital wallet();
 }

@@ -7,15 +7,15 @@ import com.binance.connector.futures.client.utils.RequestHandler;
 import java.util.LinkedHashMap;
 
 /**
- * <h2>Wallet Endpoints</h2>
+ * <h2>Capital Endpoints</h2>
  * Response will be returned in <i>String format</i>.
  */
-public class Wallet {
+public class Capital {
     private String productUrl;
     private RequestHandler requestHandler;
     private boolean showLimitUsage;
 
-    public Wallet(String productUrl, String apiKey, String secretKey, boolean showLimitUsage, ProxyAuth proxy) {
+    public Capital(String productUrl, String apiKey, String secretKey, boolean showLimitUsage, ProxyAuth proxy) {
         this.productUrl = productUrl;
         this.requestHandler = new RequestHandler(apiKey, secretKey, proxy);
         this.showLimitUsage = showLimitUsage;
@@ -62,7 +62,7 @@ public class Wallet {
      * addressTag -- optional/string -- Address tag <br>
      * name -- optional/string -- Description of the address <br>
      * withdrawOrderId -- optional/string -- Client id for withdraw <br>
-     * recvWindow -- optional/long <br>
+     * recvWindow -- optional/long -- The value cannot be greater than 60000 <br>
      * @return String
      * @see <a href="https://developers.binance.com/docs/wallet/capital/withdraw">
      *     https://developers.binance.com/docs/wallet/capital/withdraw</a>
@@ -72,5 +72,24 @@ public class Wallet {
         ParameterChecker.checkParameter(parameters, "amount", Double.class);
         ParameterChecker.checkParameter(parameters, "address", String.class);
         return requestHandler.sendSignedRequest(productUrl, CAPITAL_WITHDRAW, parameters, HttpMethod.POST, showLimitUsage);
+    }
+
+    private final String CAPITAL_CONFIG_GETALL = "/v1/capital/config/getall";
+    /**
+     * Get all coin information
+     * <br><br>
+     * GET /v1/capital/config/getall
+     * <br>
+     * @param
+     * parameters LinkedHashedMap of String,Object pair
+     *            where String is the name of the parameter and Object is the value of the parameter
+     * <br><br>
+     * recvWindow -- optional/long -- The value cannot be greater than 60000 <br>
+     * @return String
+     * @see <a href="https://developers.binance.com/docs/wallet/capital">
+     *     https://developers.binance.com/docs/wallet/capital</a>
+     */
+    public String getAllCoinsInfo(LinkedHashMap<String, Object> parameters) {
+        return requestHandler.sendSignedRequest(productUrl, CAPITAL_CONFIG_GETALL, parameters, HttpMethod.GET, showLimitUsage);
     }
 }

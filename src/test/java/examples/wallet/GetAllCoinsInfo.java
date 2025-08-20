@@ -21,7 +21,7 @@ public final class GetAllCoinsInfo {
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
 
         try {
-            String result = client.wallet().getAllCoinsInfo(parameters);
+            String result = client.capital().getAllCoinsInfo(parameters);
             logger.info(result);
         } catch (BinanceConnectorException e) {
             logger.error("fullErrMessage: {}", e.getMessage(), e);

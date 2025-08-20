@@ -26,7 +26,7 @@ public final class CapitalWithdraw {
         parameters.put("name", "Withdraw to external wallet");
 
         try {
-            String result = client.wallet().capitalWithdraw(parameters);
+            String result = client.capital().capitalWithdraw(parameters);
             logger.info(result);
         } catch (BinanceConnectorException e) {
             logger.error("fullErrMessage: {}", e.getMessage(), e);

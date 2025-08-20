@@ -37,7 +37,7 @@ public class TestWalletCapitalWithdraw {
         parameters.put("amount", randomAmount);
         parameters.put("address", "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2");
         
-        String result = client.wallet().capitalWithdraw(parameters);
+        String result = client.capital().capitalWithdraw(parameters);
         assertEquals(MockData.MOCK_RESPONSE, result);
     }
 
@@ -58,7 +58,7 @@ public class TestWalletCapitalWithdraw {
         parameters.put("name", "Test withdrawal");
         parameters.put("withdrawOrderId", "withdraw123");
         
-        String result = client.wallet().capitalWithdraw(parameters);
+        String result = client.capital().capitalWithdraw(parameters);
         assertEquals(MockData.MOCK_RESPONSE, result);
     }
 
@@ -70,7 +70,7 @@ public class TestWalletCapitalWithdraw {
         parameters.put("coin", "BTC");
         // Missing amount and address
         
-        assertThrows(BinanceConnectorException.class, () -> client.wallet().capitalWithdraw(parameters));
+        assertThrows(BinanceConnectorException.class, () -> client.capital().capitalWithdraw(parameters));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class TestWalletCapitalWithdraw {
         parameters.put("address", "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2");
         // Missing coin
         
-        assertThrows(BinanceConnectorException.class, () -> client.wallet().capitalWithdraw(parameters));
+        assertThrows(BinanceConnectorException.class, () -> client.capital().capitalWithdraw(parameters));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class TestWalletCapitalWithdraw {
         parameters.put("address", "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2");
         // Missing amount
         
-        assertThrows(BinanceConnectorException.class, () -> client.wallet().capitalWithdraw(parameters));
+        assertThrows(BinanceConnectorException.class, () -> client.capital().capitalWithdraw(parameters));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class TestWalletCapitalWithdraw {
         parameters.put("amount", testAmount);
         // Missing address
         
-        assertThrows(BinanceConnectorException.class, () -> client.wallet().capitalWithdraw(parameters));
+        assertThrows(BinanceConnectorException.class, () -> client.capital().capitalWithdraw(parameters));
     }
 
     @Test
@@ -121,7 +121,7 @@ public class TestWalletCapitalWithdraw {
 
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         
-        String result = client.wallet().getAllCoinsInfo(parameters);
+        String result = client.capital().getAllCoinsInfo(parameters);
         assertEquals(MockData.MOCK_RESPONSE, result);
     }
 
@@ -137,7 +137,7 @@ public class TestWalletCapitalWithdraw {
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("recvWindow", recvWindow);
         
-        String result = client.wallet().getAllCoinsInfo(parameters);
+        String result = client.capital().getAllCoinsInfo(parameters);
         assertEquals(MockData.MOCK_RESPONSE, result);
     }
 }

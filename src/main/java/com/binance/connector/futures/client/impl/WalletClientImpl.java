@@ -16,7 +16,7 @@ public class WalletClientImpl implements WalletClient {
     }
 
     @Override
-    public Capital wallet() {
+    public Capital capital() {
         return new Capital(prodUrl, apiKey, secretKey, showLimitUsage, null);
     }
 }

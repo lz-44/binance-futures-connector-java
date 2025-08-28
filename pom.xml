@@ -12,16 +12,18 @@
     <description>lightweight connector to Futures API</description>
     <url>https://github.com/binance/binance-futures-connector-java</url>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+    <profiles>
+        <profile>
+            <id>ma-packages</id>
+            <distributionManagement>
+                <repository>
+                    <id>github-ma-packages</id>
+                    <name>GitHub Packages (ma-traders/packages)</name>
+                    <url>https://maven.pkg.github.com/ma-traders/packages</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
     <licenses>
         <license>

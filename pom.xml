@@ -6,24 +6,19 @@
 
     <groupId>io.github.binance</groupId>
     <artifactId>binance-futures-connector-java</artifactId>
-    <version>3.0.5-ws-ping</version>
+    <version>3.0.5-ws-ping1</version>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>lightweight connector to Futures API</description>
     <url>https://github.com/binance/binance-futures-connector-java</url>
 
-    <profiles>
-        <profile>
-            <id>ma-packages</id>
-            <distributionManagement>
-                <repository>
-                    <id>github-ma-packages</id>
-                    <name>GitHub Packages (ma-traders/packages)</name>
-                    <url>https://maven.pkg.github.com/ma-traders/packages</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-    </profiles>
+    <distributionManagement>
+        <repository>
+            <id>github-ma-packages</id>
+            <name>GitHub Packages (ma-traders/packages)</name>
+            <url>https://maven.pkg.github.com/ma-traders/packages-repo</url>
+        </repository>
+    </distributionManagement>
 
     <licenses>
         <license>

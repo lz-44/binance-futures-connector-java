@@ -1,6 +1,7 @@
 package com.binance.connector.futures.client.impl;
 
 import com.binance.connector.futures.client.WalletClient;
+import com.binance.connector.futures.client.impl.wallet.Asset;
 import com.binance.connector.futures.client.impl.wallet.Capital;
 
 public class WalletClientImpl implements WalletClient {
@@ -18,5 +19,10 @@ public class WalletClientImpl implements WalletClient {
     @Override
     public Capital capital() {
         return new Capital(prodUrl, apiKey, secretKey, showLimitUsage, null);
+    }
+
+    @Override
+    public Asset asset() {
+        return new Asset(prodUrl, apiKey, secretKey, showLimitUsage, null);
     }
 }

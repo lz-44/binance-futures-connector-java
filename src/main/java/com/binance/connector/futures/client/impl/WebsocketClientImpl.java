@@ -40,6 +40,14 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
         this.pingInterval = pingInterval;
     }
 
+    protected Duration getPingInterval() {
+        return pingInterval;
+    }
+
+    protected void registerConnection(int connectionId, WebSocketConnection connection) {
+        connections.put(connectionId, connection);
+    }
+
     public WebSocketCallback getNoopCallback() {
         return this.noopCallback;
     }

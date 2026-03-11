@@ -12,6 +12,7 @@ public final class DefaultUrls {
     // Spot
     public static final String SPOT_PROD_URL = "https://api.binance.com";
     public static final String SPOT_WS_URL = "wss://stream.binance.com:9443";
+    public static final String SPOT_WS_API_URL = "wss://ws-api.binance.com:443/ws-api/v3";
     private DefaultUrls() {
     }
 }

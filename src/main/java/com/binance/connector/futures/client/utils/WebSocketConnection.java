@@ -74,6 +74,15 @@ public class WebSocketConnection extends WebSocketListener {
         }
     }
 
+    public boolean send(String text) {
+        synchronized (mutex) {
+            if (null != webSocket) {
+                return webSocket.send(text);
+            }
+            return false;
+        }
+    }
+
     @Override
     public void onOpen(WebSocket ws, Response response) {
         logger.info("[Connection {}] Connected to Server", connectionId);

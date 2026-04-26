@@ -1,6 +1,7 @@
 package com.binance.connector.futures.client.impl;
 
 import com.binance.connector.futures.client.WebsocketClient;
+import com.binance.connector.futures.client.enums.StreamCategory;
 import com.binance.connector.futures.client.utils.HttpClientSingleton;
 import com.binance.connector.futures.client.utils.RequestBuilder;
 import com.binance.connector.futures.client.utils.UrlBuilder;
@@ -57,6 +58,20 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
     }
 
     /**
+     * Returns the URL prefix for the given stream category. Markets that do
+     * not split traffic by category (COIN-M, Spot) ignore the argument and
+     * return the plain base URL; USDⓈ-M overrides this to inject the
+     * {@code /public}, {@code /market}, or {@code /private} segment required
+     * after the 2026-04-23 migration.
+     *
+     * @param category stream category
+     * @return base URL to use when building the websocket request
+     */
+    protected String streamBaseUrl(StreamCategory category) {
+        return this.baseUrl;
+    }
+
+    /**
      * The Aggregate Trade Streams push market trade information that is aggregated for fills with same price and taking side every 100 milliseconds.
      * Only market trades will be aggregated, which means the insurance fund trades and ADL trades won't be aggregated.
      * <br><br>
@@ -89,7 +104,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
     @Override
     public int aggTradeStream(String symbol, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
         ParameterChecker.checkParameterType(symbol, String.class, "symbol");
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@aggTrade", baseUrl, symbol.toLowerCase()));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@aggTrade", streamBaseUrl(StreamCategory.MARKET), symbol.toLowerCase()));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -130,10 +145,11 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
     public int markPriceStream(String symbol, int speed, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
         Request request = null;
         final int defaultSpeed = 3;
+        String url = streamBaseUrl(StreamCategory.MARKET);
         if (speed == defaultSpeed) {
-            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@markPrice", baseUrl, symbol.toLowerCase()));
+            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@markPrice", url, symbol.toLowerCase()));
         } else {
-            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@markPrice@%ss", baseUrl, symbol.toLowerCase(), speed));
+            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@markPrice@%ss", url, symbol.toLowerCase(), speed));
         }
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
@@ -174,7 +190,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
     @Override
     public int klineStream(String symbol, String interval, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
         ParameterChecker.checkParameterType(symbol, String.class, "symbol");
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@kline_%s", baseUrl, symbol.toLowerCase(), interval));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@kline_%s", streamBaseUrl(StreamCategory.MARKET), symbol.toLowerCase(), interval));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -217,7 +233,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
         ParameterChecker.checkParameterType(contractType, String.class, "contractType");
         ParameterChecker.checkParameterType(interval, String.class, "interval");
 
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s_%s@continuousKline_%s", baseUrl, pair.toLowerCase(), contractType, interval));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s_%s@continuousKline_%s", streamBaseUrl(StreamCategory.MARKET), pair.toLowerCase(), contractType, interval));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -256,7 +272,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
     @Override
     public int miniTickerStream(String symbol, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
         ParameterChecker.checkParameterType(symbol, String.class, "symbol");
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@miniTicker", baseUrl, symbol.toLowerCase()));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@miniTicker", streamBaseUrl(StreamCategory.MARKET), symbol.toLowerCase()));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -292,7 +308,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
      */
     @Override
     public int allMiniTickerStream(WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/!miniTicker@arr", baseUrl));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/!miniTicker@arr", streamBaseUrl(StreamCategory.MARKET)));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -331,7 +347,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
     @Override
     public int symbolTicker(String symbol, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
         ParameterChecker.checkParameterType(symbol, String.class, "symbol");
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@ticker", baseUrl, symbol.toLowerCase()));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@ticker", streamBaseUrl(StreamCategory.MARKET), symbol.toLowerCase()));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -367,7 +383,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
      */
     @Override
     public int allTickerStream(WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/!ticker@arr", baseUrl));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/!ticker@arr", streamBaseUrl(StreamCategory.MARKET)));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -405,7 +421,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
     @Override
     public int bookTicker(String symbol, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
         ParameterChecker.checkParameterType(symbol, String.class, "symbol");
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@bookTicker", baseUrl, symbol.toLowerCase()));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@bookTicker", streamBaseUrl(StreamCategory.PUBLIC), symbol.toLowerCase()));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -439,7 +455,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
      */
     @Override
     public int allBookTickerStream(WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/!bookTicker", baseUrl));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/!bookTicker", streamBaseUrl(StreamCategory.PUBLIC)));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -479,7 +495,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
     @Override
     public int forceOrderStream(String symbol, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
         ParameterChecker.checkParameterType(symbol, String.class, "symbol");
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@forceOrder", baseUrl, symbol.toLowerCase()));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@forceOrder", streamBaseUrl(StreamCategory.MARKET), symbol.toLowerCase()));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -515,7 +531,7 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
      */
     @Override
     public int allForceOrderStream(WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/!forceOrder@arr", baseUrl));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/!forceOrder@arr", streamBaseUrl(StreamCategory.MARKET)));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
@@ -560,10 +576,11 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
 
         Request request = null;
         final int defaultSpeed = 250;
+        String url = streamBaseUrl(StreamCategory.PUBLIC);
         if (speed == defaultSpeed) {
-            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@depth%s", baseUrl, symbol.toLowerCase(), levels));
+            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@depth%s", url, symbol.toLowerCase(), levels));
         } else {
-            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@depth%s@%sms", baseUrl, symbol.toLowerCase(), levels, speed));
+            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@depth%s@%sms", url, symbol.toLowerCase(), levels, speed));
         }
 
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
@@ -608,10 +625,11 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
 
         Request request = null;
         final int defaultSpeed = 250;
+        String url = streamBaseUrl(StreamCategory.PUBLIC);
         if (speed == defaultSpeed) {
-            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@depth", baseUrl, symbol.toLowerCase(), speed));
+            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@depth", url, symbol.toLowerCase()));
         } else {
-            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@depth@%sms", baseUrl, symbol.toLowerCase(), speed));
+            request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s@depth@%sms", url, symbol.toLowerCase(), speed));
         }
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
 
@@ -645,14 +663,21 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
      */
     @Override
     public int listenUserStream(String listenKey, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
-        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s", baseUrl, listenKey));
+        Request request = RequestBuilder.buildWebsocketRequest(String.format("%s/ws/%s", streamBaseUrl(StreamCategory.PRIVATE), listenKey));
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }
 
     /**
      * Combined streams are accessed at /stream?streams=&lt;streamName1&gt;/&lt;streamName2&gt;/&lt;streamName3&gt;
+     * <br>
+     * Scoped to a single endpoint category. Required by USDⓈ-M Futures after 2026-04-23, where
+     * {@code PUBLIC}, {@code MARKET}, and {@code PRIVATE} streams are routed through separate prefixes
+     * and cannot share a single connection (e.g. order-book streams are {@code PUBLIC}, while trade and
+     * mark-price streams are {@code MARKET}). Markets that have not adopted the split (COIN-M, Spot)
+     * ignore the category.
      *
-     * @param streams A list of stream names to be combined <br>
+     * @param category endpoint category that all listed streams belong to
+     * @param streams A list of stream names to be combined
      * @param onMessageCallback onMessageCallback
      * @return int - Connection ID
      * @see <a href="https://developers.binance.com/docs/derivatives/usds-margined-futures/websocket-market-streams/Connect">
@@ -661,13 +686,14 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
      * https://developers.binance.com/docs/derivatives/coin-margined-futures/websocket-market-streams/Connect</a>
      */
     @Override
-    public int combineStreams(ArrayList<String> streams, WebSocketCallback onMessageCallback) {
-        return combineStreams(streams, noopCallback, onMessageCallback, noopCallback, noopCallback);
+    public int combineStreams(StreamCategory category, ArrayList<String> streams, WebSocketCallback onMessageCallback) {
+        return combineStreams(category, streams, noopCallback, onMessageCallback, noopCallback, noopCallback);
     }
 
     /**
-     * Same as {@link #combineStreams(ArrayList, WebSocketCallback)} plus accepts callbacks for all major websocket connection events.
+     * Same as {@link #combineStreams(StreamCategory, ArrayList, WebSocketCallback)} plus accepts callbacks for all major websocket connection events.
      *
+     * @param category endpoint category that all listed streams belong to
      * @param streams stream name list
      * @param onOpenCallback onOpenCallback
      * @param onMessageCallback onMessageCallback
@@ -676,8 +702,8 @@ public abstract class WebsocketClientImpl implements WebsocketClient {
      * @return int - Connection ID
      */
     @Override
-    public int combineStreams(ArrayList<String> streams, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
-        String url = UrlBuilder.buildStreamUrl(String.format("%s/stream", baseUrl), streams);
+    public int combineStreams(StreamCategory category, ArrayList<String> streams, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback) {
+        String url = UrlBuilder.buildStreamUrl(String.format("%s/stream", streamBaseUrl(category)), streams);
         Request request = RequestBuilder.buildWebsocketRequest(url);
         return createConnection(onOpenCallback, onMessageCallback, onClosingCallback, onFailureCallback, request);
     }

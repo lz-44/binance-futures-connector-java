@@ -1,5 +1,6 @@
 package examples.cm_futures.websocket;
 
+import com.binance.connector.futures.client.enums.StreamCategory;
 import com.binance.connector.futures.client.impl.CMWebsocketClientImpl;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public final class CombineStreams {
         streams.add("btcusd_perp@aggTrade");
         streams.add("ethusd_perp@aggTrade");
 
-        client.combineStreams(streams, ((event) -> {
+        client.combineStreams(StreamCategory.MARKET, streams, ((event) -> {
             System.out.println(event);
         }));
 

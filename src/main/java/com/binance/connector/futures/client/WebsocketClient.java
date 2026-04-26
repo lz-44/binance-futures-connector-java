@@ -1,5 +1,6 @@
 package com.binance.connector.futures.client;
 
+import com.binance.connector.futures.client.enums.StreamCategory;
 import com.binance.connector.futures.client.utils.WebSocketCallback;
 import java.util.ArrayList;
 
@@ -24,8 +25,8 @@ public interface WebsocketClient {
     int partialDepthStream(String symbol, int levels, int speed, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback);
     int diffDepthStream(String symbol, int speed, WebSocketCallback onMessageCallback);
     int diffDepthStream(String symbol, int speed, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback);
-    int combineStreams(ArrayList<String> streams, WebSocketCallback onMessageCallback);
-    int combineStreams(ArrayList<String> streams, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback);
+    int combineStreams(StreamCategory category, ArrayList<String> streams, WebSocketCallback onMessageCallback);
+    int combineStreams(StreamCategory category, ArrayList<String> streams, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback);
     int listenUserStream(String listenKey, WebSocketCallback onMessageCallback);
     int listenUserStream(String listenKey, WebSocketCallback onOpenCallback, WebSocketCallback onMessageCallback, WebSocketCallback onClosingCallback, WebSocketCallback onFailureCallback);
     void closeConnection(int streamId);

@@ -327,6 +327,18 @@ public abstract class Market {
         return requestHandler.sendPublicRequest(productUrl, INDEXPRICEKLINES, parameters, HttpMethod.GET, showLimitUsage);
     }
 
+    private final String PREMIUMINDEXKLINES = "/v1/premiumIndexKlines";
+    /**
+     * Kline/candlestick bars for the premium index of a pair.
+     * @param parameters LinkedHashMap<String, Object>
+     * @return String
+     */
+    public String premiumIndexKlines(LinkedHashMap<String, Object> parameters) {
+        ParameterChecker.checkParameter(parameters, "symbol", String.class);
+        ParameterChecker.checkParameter(parameters, "interval", String.class);
+        return requestHandler.sendPublicRequest(productUrl, PREMIUMINDEXKLINES, parameters, HttpMethod.GET, showLimitUsage);
+    }
+
     private final String MARKPRICEKLINES = "/v1/markPriceKlines";
     /**
      * Kline/candlestick bars for the mark price of a symbol.
